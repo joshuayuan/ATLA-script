@@ -1,3 +1,7 @@
+import urllib2
+import os
+import errno
+
 def generateURLs():
     urls = []
     start = 1
@@ -19,4 +23,21 @@ def generateURLs():
     print urls
     return urls
 
-generateURLs()
+def openPages(pages):
+    for p in pages:
+        f = urllib2.urlopen(p)
+        f = f.read()
+        title = "s"+str(p[49]) + "e"+str(p[50:52])+".html"
+        writeHtmlToFile(f, title)
+
+def writeHtmlToFile(html, title):
+
+    start = html.index("<blockquote>") + 11;
+    end = html.index("</blockquote>")
+    filename = "./scripts/"
+    if not os.path.exists(filename):
+        os.makedirs(filename)
+    f = open(filename+title, "w")
+
+pages = generateURLs()
+openPages(pages)
