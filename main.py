@@ -32,12 +32,14 @@ def openPages(pages):
 
 def writeHtmlToFile(html, title):
 
-    start = html.index("<blockquote>") + 11;
+    start = html.index("<blockquote>") + 12;
     end = html.index("</blockquote>")
     filename = "./scripts/"
     if not os.path.exists(filename):
         os.makedirs(filename)
     f = open(filename+title, "w")
+    f.write(html[start:end])
+    print("Complete " + filename+title)
 
 pages = generateURLs()
 openPages(pages)
