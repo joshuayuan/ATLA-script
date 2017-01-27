@@ -11,6 +11,6 @@ January 2017 I decided to stop procrastinating and just write this program.
 ##How it works##
 The function *generateURLs* creates a list of strings formatted like "http://atla.avatarspirit.net/transcripts.php?num=" and appended with a book and episode number. For example, "http://atla.avatarspirit.net/transcripts.php?num=305" corresponds to the script for Book 3, Episode 5. 
 
-Then, the function *openPages* iterates through that list generated from the previous function, and calls the *writeHtmlToFile* function, passing the html for each page and a title string as arguments. *writeHtmlToFile* scans the whole html string for "<blockquote>" and "</blockquote>" substrings and saves the content between those two tags into a new file in the *scripts* folders.
+Then, the function *openPages* iterates through that list generated from the previous function, and calls the *writeHtmlToFile* function, passing the html for each page and a title string as arguments. *writeHtmlToFile* scans the whole html string for "&lt;blockquote&gt;" and "&lt;/blockquote&gt;" substrings and saves the content between those two tags into a new file in the *scripts* folders.
 
 Open the file in browser - Tada! 
