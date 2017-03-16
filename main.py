@@ -1,6 +1,7 @@
 import urllib2
 import os
 import errno
+import sys
 
 def generateURLs():
     urls = []
@@ -45,7 +46,11 @@ def writeHtmlToFile(html, title, count):
     header = "<h1> " + title + "</h1>\n"
     ts = html[start:end]
     f.write(yaml + header + ts)
-    print("Complete " + filename+title)
+    update_progress_bar(count * 100 / 60, title)
+
+def update_progress_bar(progress, title):
+    sys.stdout.write('\r[{0}{1}] {2}% (Completed {3})'.format('#'*(progress/5),' '*(20 - progress/5), progress, title))
+    sys.stdout.flush()
 
 pages = generateURLs()
 openPages(pages)
