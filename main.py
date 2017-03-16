@@ -20,25 +20,31 @@ def generateURLs():
         runner += 1
     s = "http://atla.avatarspirit.net/transcripts.php?num=321"
     urls.append(s)
+    urls.sort()
     print urls
     return urls
 
 def openPages(pages):
+    count = 0
     for p in pages:
         f = urllib2.urlopen(p)
         f = f.read()
-        title = "s"+str(p[49]) + "e"+str(p[50:52])+".html"
-        writeHtmlToFile(f, title)
+        title = "s"+str(p[49]) + "e"+str(p[50:52])
+        writeHtmlToFile(f, title, count)
+        count+=1
 
-def writeHtmlToFile(html, title):
+def writeHtmlToFile(html, title, count):
 
     start = html.index("<blockquote>") + 12;
     end = html.index("</blockquote>")
     filename = "./scripts/"
     if not os.path.exists(filename):
         os.makedirs(filename)
-    f = open(filename+title, "w")
-    f.write(html[start:end])
+    f = open(filename+title+".html", "w")
+    yaml = "---\n    layout: scripts\n    title: " + str(title) + "\n    order: "+str(count) +"\n---\n"
+    header = "<h1> " + title + "</h1>\n"
+    ts = html[start:end]
+    f.write(yaml + header + ts)
     print("Complete " + filename+title)
 
 pages = generateURLs()
